@@ -34,6 +34,8 @@ use 5.10.0;
 
 use warnings;
 use strict;
+use File::Spec::Functions qw(catfile rel2abs);
+use File::Basename qw(dirname);
 use Getopt::Long;
 use IO::Socket;
 use Text::ParseWords;
@@ -60,7 +62,7 @@ my $have_ipv6 = eval {
 
 $|=1;
 
-my $client = 'mosh-client';
+my $client = catfile( dirname( rel2abs( $0 )), 'mosh-client' );
 my $server = 'mosh-server';
 
 my $predict = undef;
@@ -88,9 +90,9 @@ my @cmdline = @ARGV;
 my $usage =
 qq{Usage: $0 [options] [--] [user@]host [command...]
         --client=PATH        mosh client on local machine
-                                (default: "mosh-client")
+                                (default: "${client}")
         --server=COMMAND     mosh server on remote machine
-                                (default: "mosh-server")
+                                (default: "${server}")
 
         --predict=adaptive      local echo for slower links [default]
 -a      --predict=always        use local echo even on fast links
