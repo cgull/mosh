@@ -87,7 +87,7 @@ deploy:
     - macosx/${TRAVIS_TAG}.pkg
     - macosx/${TRAVIS_TAG}-osx-build-report.tbz
   on:
-    repo: mobile-shell/mosh
+    repo: cgull/mosh
     tags: true
     condition: ${TRAVIS_OS_NAME} = osx
 
