@@ -31,10 +31,8 @@ install()
 #
 deps()
 {
-    brew update
-    brew update
-    brew reinstall tmux
-    brew reinstall protobuf
+    brew install tmux || true
+    brew install protobuf || true
 }
 
 #
@@ -49,6 +47,8 @@ deps()
 package_deps()
 {
     deps
+    brew update
+    brew upgrade
     brew rm protobuf
     brew install protobuf --universal --build-bottle
 }
