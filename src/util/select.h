@@ -33,6 +33,7 @@
 #ifndef SELECT_HPP
 #define SELECT_HPP
 
+#include <inttypes.h>
 #include <string.h>
 #include <errno.h>
 #include <signal.h>
@@ -64,6 +65,7 @@ private:
     , read_fds( dummy_fd_set )
     , empty_sigset( dummy_sigset )
     , consecutive_polls( 0 )
+    , poll_time( 0 )
   {
     FD_ZERO( &all_fds );
     FD_ZERO( &read_fds );
@@ -133,14 +135,14 @@ public:
       if ( verbose > 1 && consecutive_polls == MAX_POLLS ) {
 	fprintf( stderr, "%s: got %d polls, rate limiting.\n", __func__, MAX_POLLS );
 	freeze_timestamp();
-	fprintf( stderr, "%s: took %llu ms\n", __func__, frozen_timestamp() - poll_time );
+	fprintf( stderr, "%s: took %" PRIu64 " ms\n", __func__, frozen_timestamp() - poll_time );
       }
       timeout = 1;
     } else if ( timeout != 0 && consecutive_polls ) {
       if ( verbose > 1 && consecutive_polls >= MAX_POLLS ) {
 	fprintf( stderr, "%s: got %d consecutive polls\n", __func__, consecutive_polls );
 	freeze_timestamp();
-	fprintf( stderr, "%s: took %llu ms\n", __func__, frozen_timestamp() - poll_time );
+	fprintf( stderr, "%s: took %" PRIu64 " ms\n", __func__, frozen_timestamp() - poll_time );
       }
       consecutive_polls = 0;
     }
