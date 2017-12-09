@@ -125,14 +125,22 @@ public:
     if ( verbose > 1 && timeout == 0 ) {
       fprintf( stderr, "%s: got poll (timeout 0)\n", __func__ );
     }
+    if ( timeout == 0 && consecutive_polls == 0 ) {
+      freeze_timestamp();
+      poll_time = frozen_timestamp();
+    }
     if ( timeout == 0 && ++consecutive_polls >= MAX_POLLS ) {
       if ( verbose > 1 && consecutive_polls == MAX_POLLS ) {
 	fprintf( stderr, "%s: got %d polls, rate limiting.\n", __func__, MAX_POLLS );
+	freeze_timestamp();
+	fprintf( stderr, "%s: took %llu ms\n", __func__, frozen_timestamp() - poll_time );
       }
       timeout = 1;
     } else if ( timeout != 0 && consecutive_polls ) {
       if ( verbose > 1 && consecutive_polls >= MAX_POLLS ) {
 	fprintf( stderr, "%s: got %d consecutive polls\n", __func__, consecutive_polls );
+	freeze_timestamp();
+	fprintf( stderr, "%s: took %llu ms\n", __func__, frozen_timestamp() - poll_time );
       }
       consecutive_polls = 0;
     }
@@ -239,6 +247,7 @@ private:
   static sigset_t dummy_sigset;
   int consecutive_polls;
   static unsigned int verbose;
+  uint64_t poll_time;
 };
 
 #endif
