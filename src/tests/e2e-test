@@ -22,7 +22,10 @@ dump_logs()
     dir=$1
     shift
     testname=$(basename "$dir" .d)
-    for logfile in $dir/*.tmux.log; do
+    for logfile in $dir/*.tmux.log $dir/*.server.stderr; do
+	if ! [ -e "${logfile}" ]; then
+	    continue
+	fi
 	printf "travis_fold:start:%s-%s\n" "$testname" "$(basename "$logfile")"
 	cat "$logfile"
 	printf "travis_fold:end:%s-%s\n" "$testname" "$(basename "$logfile")"
