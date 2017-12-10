@@ -89,9 +89,3 @@ deploy:
     repo: mobile-shell/mosh
     tags: true
     condition: ${TRAVIS_OS_NAME} = osx
-
-notifications:
-  irc:
-    channels:
-      - "chat.freenode.net#mosh"
-    skip_join: true
