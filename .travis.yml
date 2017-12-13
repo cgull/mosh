@@ -1,7 +1,6 @@
 # This does Travis CI builds on Linux and OS X, and on a tag build,
 # also produces an OS X package.
 os:
-  - linux
   - osx
 
 cache:
