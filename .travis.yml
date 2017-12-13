@@ -63,7 +63,7 @@ before_script:
 # 'make distcheck', and OS X package build on tag builds.
 script:
   - ./autogen.sh
-  - ./configure --enable-compile-warnings=error --enable-examples
+  - ./configure --enable-examples
   - sudo make check VERBOSE=1 V=1 TESTS=network-no-diff.test
   # Build OS X package for tags.
   - |
