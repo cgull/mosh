@@ -65,7 +65,7 @@ before_script:
 script:
   - ./autogen.sh
   - ./configure --enable-compile-warnings=error --enable-examples
-  - make check VERBOSE=1 V=1 TESTS=network-no-diff.test
+  - sudo make check VERBOSE=1 V=1 TESTS=network-no-diff.test
   # Build OS X package for tags.
   - |
     if test osx = "${TRAVIS_OS_NAME}" && test -n "${TRAVIS_TAG}"; then
