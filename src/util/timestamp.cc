@@ -61,6 +61,11 @@ uint64_t frozen_timestamp( void )
 
 void freeze_timestamp( void )
 {
+  millis_cache = get_timestamp();
+}
+
+uint64_t get_timestamp( void )
+{
   // Try all our clock sources till we get something.  This could
   // break if a source only sometimes works in a given process.
 #if HAVE_CLOCK_GETTIME
@@ -77,8 +82,7 @@ void freeze_timestamp( void )
     uint64_t millis = tp.tv_nsec / 1000000;
     millis += uint64_t( tp.tv_sec ) * 1000;
 
-    millis_cache = millis;
-    return;
+    return millis;
   }
 #endif
 #if HAVE_MACH_ABSOLUTE_TIME
@@ -97,8 +101,7 @@ void freeze_timestamp( void )
   // NB: mach_absolute_time() returns "absolute time units"
   // We need to apply a conversion to get milliseconds.
   if (absolute_to_millis > 0.0) {
-    millis_cache = mach_absolute_time() * absolute_to_millis;
-    return;
+    return mach_absolute_time() * absolute_to_millis;
   }
 #endif
 #if HAVE_GETTIMEOFDAY
@@ -111,9 +114,10 @@ void freeze_timestamp( void )
     uint64_t millis = tv.tv_usec / 1000;
     millis += uint64_t( tv.tv_sec ) * 1000;
 
-    millis_cache = millis;
-    return;
+    return millis;
   }
+  // We are broken.
+  return 0;
 #else
 # error "gettimeofday() unavailable-- required as timer of last resort"
 #endif

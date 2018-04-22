@@ -37,5 +37,6 @@
 
 void freeze_timestamp( void );
 uint64_t frozen_timestamp( void );
+uint64_t get_timestamp( void ); // For debug only.
 
 #endif
