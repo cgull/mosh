@@ -33,7 +33,7 @@
 #ifndef SELECT_HPP
 #define SELECT_HPP
 
-#include <cinttypes>
+#include <inttypes.h>
 #include <string.h>
 #include <errno.h>
 #include <signal.h>
