@@ -33,6 +33,7 @@
 #ifndef SELECT_HPP
 #define SELECT_HPP
 
+#include <cinttypes>
 #include <string.h>
 #include <errno.h>
 #include <signal.h>
@@ -140,7 +141,7 @@ public:
     } else if ( timeout != 0 && consecutive_polls ) {
       if ( verbose > 1 && consecutive_polls >= MAX_POLLS ) {
 	uint64_t polls_span = get_timestamp() - polls_start;
-	fprintf( stderr, "%s: got %" PRIu64 " consecutive polls over %llu ms\n", __func__, consecutive_polls, polls_span );
+	fprintf( stderr, "%s: got %d consecutive polls over %llu ms\n", __func__, consecutive_polls, polls_span );
       }
       consecutive_polls = 0;
     }
