@@ -36,7 +36,7 @@ before_install:
   # being killed.
   - |
     if test osx = "${TRAVIS_OS_NAME}"; then
-      macosx/brew-deps.sh install &&
+      travis_wait 60 macosx/brew-deps.sh install &&
         if test -n "${TRAVIS_TAG}"; then
           travis_wait 60 macosx/brew-deps.sh package_deps
         else
