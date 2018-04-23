@@ -64,6 +64,7 @@ private:
     , read_fds( dummy_fd_set )
     , empty_sigset( dummy_sigset )
     , consecutive_polls( 0 )
+    , polls_start( 0 )
   {
     FD_ZERO( &all_fds );
     FD_ZERO( &read_fds );
@@ -139,7 +140,7 @@ public:
     } else if ( timeout != 0 && consecutive_polls ) {
       if ( verbose > 1 && consecutive_polls >= MAX_POLLS ) {
 	uint64_t polls_span = get_timestamp() - polls_start;
-	fprintf( stderr, "%s: got %d consecutive polls over %llu ms\n", __func__, consecutive_polls, polls_span );
+	fprintf( stderr, "%s: got %" PRIu64 " consecutive polls over %llu ms\n", __func__, consecutive_polls, polls_span );
       }
       consecutive_polls = 0;
     }
