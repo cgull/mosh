@@ -141,7 +141,7 @@ public:
     } else if ( timeout != 0 && consecutive_polls ) {
       if ( verbose > 1 && consecutive_polls >= MAX_POLLS ) {
 	uint64_t polls_span = get_timestamp() - polls_start;
-	fprintf( stderr, "%s: got %d consecutive polls over %llu ms\n", __func__, consecutive_polls, polls_span );
+	fprintf( stderr, "%s: got %d consecutive polls over %" PRIu64 " ms\n", __func__, consecutive_polls, polls_span );
       }
       consecutive_polls = 0;
     }
