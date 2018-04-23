@@ -90,7 +90,7 @@ deploy:
     tags: true
     condition: ${TRAVIS_OS_NAME} = osx
 
-notifications:
+.notifications:
   irc:
     channels:
       - "chat.freenode.net#mosh"
