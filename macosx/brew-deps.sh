@@ -31,10 +31,6 @@ install()
 #
 deps()
 {
-    brew uninstall -f $(brew list)
-    brew update
-    brew update
-    brew upgrade
     brew install tmux
     brew install protobuf
 }
