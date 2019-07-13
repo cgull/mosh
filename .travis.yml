@@ -28,12 +28,14 @@ addons:
     - tmux
     - perl
   homebrew:
+    # Travis makes Homebrew update optional, but it breaks on the
+    # default image because Homebrew is out of date.
+    update: true
     packages:
     # For build.
     - protobuf
     # Test suite.
     - tmux
-
 before_install:
   # Get full repo for `git describe`
   - git fetch --tags --unshallow
